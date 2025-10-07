@@ -1,10 +1,10 @@
-NAME = philosophers
-INCLUDE = Iincludes
+NAME = philo
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
+IFLAGS = -Iincludes
 MAKEFLAGS += --no-print-directory
 
-SRCS := ./main.c $(shell find -name '*.c')
+SRCS := $(shell find src -type f -name '*.c')
 OBJS := $(SRCS:.c=.o)
 
 RM = rm -f
@@ -12,20 +12,18 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "PHILOSOPHERS compiled successfully :D"
 
 %.o: %.c
-	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 clean:
-	@$(MAKE) -C clean
-	@$(RM) $(OBJS)
+	$(RM) $(OBJS)
 	@echo "🧹 PHILOSOPHERS files removed successfully!"
 
 fclean: clean
-	@$(MAKE) -C fclean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 

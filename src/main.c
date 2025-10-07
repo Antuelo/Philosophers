@@ -6,18 +6,27 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 22:16:08 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/09/25 15:17:56 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/09/27 23:55:42 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Philosophers.h"
+#include "philosophers.h"
 
 int	main(int ac, char **av)
 {
-	long	*args;
+	long	*nums;
+	t_args	args;
+	t_philo	*philos;
 
-	if (checker(ac, av + 1, args))
-		return (1);
-	printf("termina con exito\n");
+	nums = NULL;
+	if (checker(ac, av + 1, &nums))
+		return (free(nums), 1);
+	if (preparing_table(&args, nums, ac))
+		return (free(nums), 1);
+	philos = init_philos(&args);
+	if (!philos)
+		return (free(nums), 1);
+	timetoeat(philos, &args);
+	free(nums);
 	return (0);
 }
