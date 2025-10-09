@@ -4,8 +4,11 @@ CFLAGS = -Wall -Wextra -Werror -g
 IFLAGS = -Iincludes
 MAKEFLAGS += --no-print-directory
 
+SRC_DIR:= src
+OBJDIR := objets
+
 SRCS := $(shell find src -type f -name '*.c')
-OBJS := $(SRCS:.c=.o)
+OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJDIR)/%.o)
 
 RM = rm -f
 
@@ -15,7 +18,10 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "PHILOSOPHERS compiled successfully :D"
 
-%.o: %.c
+$(OBJDIR):
+	@mkdir -p $(OBJDIR)
+
+$(OBJDIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 clean:

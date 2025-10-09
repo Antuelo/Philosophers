@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 22:16:44 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/03 15:31:42 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/09 00:10:43 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ start_ms 	= 	start timestamp
 print 		=	para no mezclar printf
 *forks 		= 	array de mutex ... tenedores
 must_eat 	=	-1 si no se pasó
+philos			guarda el array para que el monitor lo vea
+
 */
 typedef struct s_args
 {
 	int				n;
+	int				stop;
 	long			t_die;
 	long			t_eat;
 	long			t_sleep;
@@ -37,7 +40,8 @@ typedef struct s_args
 	long			must_eat;
 	pthread_mutex_t	print;
 	pthread_mutex_t	*forks;
-	int				stop;
+	pthread_mutex_t	state;
+	t_philo			*philos;
 }					t_args;
 
 /*
@@ -63,5 +67,17 @@ long				now_ms(void);
 int					preparing_table(t_args *g, long *nums, int ac);
 t_philo				*init_philos(t_args *g);
 int					timetoeat(t_philo *ph, t_args *g);
+void				log_action(t_philo *ph, const char *msg);
+void				safe_usleep(t_args *g, long ms);
+
+/* philosophers loops and stubs to forks */
+void				*routine_philo(void *p);
+void				take_forks(t_philo *ph);
+void				put_forks(t_philo *ph);
+
+/* locks de estado y helpers de stop/monitor */
+void				*monitor(void *p);
+int					get_stop(t_args *g);
+void				set_s(t_args *g, int v);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:57:17 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/09/28 00:09:01 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/08 23:53:22 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,11 @@ long	now_ms(void)
 	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
 }
 
-static void	*routine_hello(void *p)
-{
-	t_args	*g;
-
-	g = (t_args *)p;
-	pthread_mutex_lock(&g->print);
-	printf("t=%ldms hello from thread\n", now_ms() - g->start_ms);
-	pthread_mutex_unlock(&g->print);
-	return (NULL);
-}
-
 /*
-	función que arma la “mesa” compartida; recibe config
- 	parseada y cantidad de args para saber si vino el 5º
-	*g = globals ...
-	*/
-int	preparing_table(t_args *g, long *nums, int ac)
+	init args...
+*/
+static void init(t_args *g, int ac, long *nums)
 {
-	int	i;
-
-	i = 0;
 	g->n = (int)nums[0];
 	g->t_die = nums[1];
 	g->t_eat = nums[2];
@@ -50,6 +34,17 @@ int	preparing_table(t_args *g, long *nums, int ac)
 	else
 		g->must_eat = -1;
 	g->stop = 0;
+}
+/*	función que arma la “mesa” compartida; recibe config
+ 	parseada y cantidad de args para saber si vino el 5º
+	*g = globals ...
+	*/
+int	preparing_table(t_args *g, long *nums, int ac)
+{
+	int	i;
+
+	i = 0;
+	init(g, ac, nums);
 	g->forks = malloc(sizeof(pthread_mutex_t) * g->n);
 	if (!g->forks)
 		return (perror("malloc, fork"), 1);
@@ -61,6 +56,8 @@ int	preparing_table(t_args *g, long *nums, int ac)
 	}
 	if (pthread_mutex_init(&g->print, NULL) != 0)
 		return (perror("mutex_init print"), 1);
+	if (pthread_mutex_init(&g->state, NULL) != 0)
+		return (perror("mutex_init state"), 1);
 	g->start_ms = now_ms();
 	return (0);
 }
@@ -87,14 +84,33 @@ t_philo	*init_philos(t_args *g)
 	return (ph);
 }
 
+/*
+	Lanza un thread por filósofo con routine_philo y espera a que terminen.
+	Por ahora se detiene cuando g->stop sea 1 (lo manejará el monitor).
+*/
 int	timetoeat(t_philo *ph, t_args *g)
 {
-	pthread_t	tid;
+	pthread_t	*tid;
+	pthread_t	mon;
+	int			i;
 
-	(void)ph;
-	if (pthread_create(&tid, NULL, routine_hello, g) != 0)
-		return (perror("pthread_create"), 1);
-	if (pthread_join(tid, NULL) != 0)
-		return (perror("pthread_join"), 1);
+	g->philos = ph;
+	tid = (pthread_t *)malloc(sizeof(pthread_t) * g->n);
+	if (!tid)
+		return (perror("malloc tid"), 1);
+	i = 0;
+	while (i < g->n)
+	{
+		if (pthread_create(&tid[i], NULL, routine_philo, &ph[i]) != 0)
+			return (perror("pthread_crete"), free(tid), 1);
+		i++;
+	}
+	if (pthread_create(&mon, NULL, monitor, g) != 0)
+		return (perror("pthread_create monitor"), free(tid), 1);
+	pthread_join(mon, NULL);
+	i = -1;
+	while (++i < g->n)
+		pthread_join(tid[i], NULL);
+	free(tid);
 	return (0);
 }
