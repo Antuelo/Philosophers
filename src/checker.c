@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:22:13 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/04 16:16:46 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/10 16:14:25 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ static int	control_number(char **args)
 	int	i;
 	int	j;
 
-	i = 1;
+	i = 0;
 	while (args[i])
 	{
 		j = 0;
-		while (args[i][j])
+		while (args[i][j] == '\0')
 		{
-			if (args[i][j] && (args[i][j] < 0 || args[i][j] > 9))
+			if (args[i][j] && (args[i][j] < '0' || args[i][j] > '9'))
 				return (1);
 			j++;
 		}
