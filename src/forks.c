@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 22:48:43 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/09 00:06:25 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/09 23:14:14 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static	void case3(t_philo *ph, int *f1, int *f2)
 	- N>1: impares left->right, pares right->left.
 	- Loggea cada toma con "has taken a fork".
 */
-void	take_fork(t_philo *ph)
+void	take_forks(t_philo *ph)
 {
 	t_args	*g;
 	int		f1;
@@ -39,7 +39,7 @@ void	take_fork(t_philo *ph)
 	if (g->n == 1)
 	{
 		pthread_mutex_lock(&g->forks[ph->left]);
-		log_action(ph, "has take a fork");
+		log_action(ph, "has taken a fork");
 		safe_usleep(g, g->t_die);
 		pthread_mutex_unlock(&g->forks[ph->left]);
 		set_s(g, 1);
@@ -50,9 +50,9 @@ void	take_fork(t_philo *ph)
 	else
 		case3(ph, &f1, &f2);
 	pthread_mutex_lock(&g->forks[f1]);
-	log_action(ph, "has take a fork");
+	log_action(ph, "has taken a fork");
 	pthread_mutex_lock(&g->forks[f2]);
-	log_action(ph, "has take a fork");
+	log_action(ph, "has taken a fork");
 }
 
 /*
@@ -60,7 +60,7 @@ void	take_fork(t_philo *ph)
 	- N==1: nada (ya se soltó en take_forks).
 	- N>1: libera ambos forks sin importar el orden.
 */
-void	put_fork(t_philo *ph)
+void	put_forks(t_philo *ph)
 {
 	t_args	*g;
 

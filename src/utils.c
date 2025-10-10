@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:42:32 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/09 00:07:32 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/09 22:40:12 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	get_stop(t_args *g)
 {
 	int	v;
 
-	pthread_mutex_lock(&g.state);
+	pthread_mutex_lock(&g->state);
 	v = g->stop;
 	pthread_mutex_unlock(&g->state);
 	return (v);
@@ -71,5 +71,5 @@ void set_s(t_args *g, int v)
 {
 	pthread_mutex_lock(&g->state);
 	g->stop = v;
-	pthread_mutex_lock(&g->state);
+	pthread_mutex_unlock(&g->state);
 }

@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 22:16:44 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/09 00:10:43 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:54:15 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
+
+typedef struct s_philo t_philo;
 
 /*
 n 			=	quantities philosophers

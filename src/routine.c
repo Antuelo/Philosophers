@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 18:15:57 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/08 23:40:06 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/10 15:14:19 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,20 +86,4 @@ void	*routine_philo(void *p)
 		safe_usleep(g, g->t_sleep);
 	}
 	return (NULL);
-}
-
-/*
-	Stubs temporales de forks:
-	- Por ahora solo logean para probar el flujo.
-	- En el paso 3 se reemplazan por lock/unlock de mutex.
-*/
-void	take_forks(t_philo *ph)
-{
-	log_action(ph, "has taken a fork");
-	log_action(ph, "has taken a fork");
-}
-
-void	put_forks(t_philo *ph)
-{
-	(void)ph;
 }
