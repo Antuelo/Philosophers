@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:42:32 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/09 22:40:12 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/12 10:24:13 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 	(evita basura después de una muerte).
 	Garantiza: no se pisan los prints entre threads (mutex).
 	Devuelve: nada. Solo side-effects (stdout).
-*/
+
 void	log_action(t_philo *ph, const char *msg)
 {
 	t_args	*g;
@@ -31,6 +31,22 @@ void	log_action(t_philo *ph, const char *msg)
 	g = ph->g;
 	pthread_mutex_lock(&g->print);
 	if (!g->stop)
+	{
+		t = now_ms() - g->start_ms;
+		printf("%ld %d %s \n", t, ph->id, msg);
+	}
+	pthread_mutex_unlock(&g->print);
+}*/
+void	log_action(t_philo *ph, const char *msg)
+{
+	t_args	*g;
+	long	t;
+
+	g = ph->g;
+	if (get_stop(g))
+		return ;
+	pthread_mutex_lock(&g->print);
+	if (!get_stop(g))
 	{
 		t = now_ms() - g->start_ms;
 		printf("%ld %d %s \n", t, ph->id, msg);
@@ -52,7 +68,7 @@ void	safe_usleep(t_args *g, long ms)
 	long	end;
 
 	end = now_ms() + ms;
-	while (!g->stop && now_ms() < end)
+	while (!get_stop(g) && now_ms() < end)
 		usleep(500);
 }
 

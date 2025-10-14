@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 23:23:35 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/10 15:17:13 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/11 13:58:01 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	*monitor(void *p)
 			if (diff > g->t_die)
 			{
 				pthread_mutex_unlock(&g->state);
+				set_s(g, 1);
 				pthread_mutex_lock(&g->print);
 				printf("%ld %d died\n", now - g->start_ms, g->philos[i].id);
 				pthread_mutex_unlock(&g->print);
-				set_s(g, 1);
 				return (NULL);
 			}
 			if (g->must_eat != -1 && g->philos[i].meals < g->must_eat)

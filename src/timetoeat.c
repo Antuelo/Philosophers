@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:57:17 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/10 16:22:20 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/11 16:29:24 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ int	timetoeat(t_philo *ph, t_args *g)
 	pthread_t	*tid;
 	pthread_t	mon;
 	int			i;
+	void		*rmon;
 
+	rmon = NULL;
 	g->philos = ph;
 	tid = (pthread_t *)malloc(sizeof(pthread_t) * g->n);
 	if (!tid)
@@ -107,7 +109,8 @@ int	timetoeat(t_philo *ph, t_args *g)
 	}
 	if (pthread_create(&mon, NULL, monitor, g) != 0)
 		return (perror("pthread_create monitor"), free(tid), 1);
-	pthread_join(mon, NULL);
+	if (pthread_join(mon, &rmon) != 0)
+		return (perror("pthread_join monitor"), free(tid), 1);;
 	i = -1;
 	while (++i < g->n)
 		pthread_join(tid[i], NULL);

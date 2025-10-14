@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 18:15:57 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/10 15:14:19 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/14 19:56:14 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,13 @@ void	*routine_philo(void *p)
 	g = ph->g;
 	while (!get_stop(g))
 	{
-		log_action(ph, "is thinking");
 		take_forks(ph);
 		if (get_stop(g))
-			break ;
-		log_action(ph, "is eating");
+			return(put_forks(ph), NULL);
 		pthread_mutex_lock(&g->state);
 		ph->last_meal = now_ms();
 		pthread_mutex_unlock(&g->state);
+		log_action(ph, "is eating");
 		safe_usleep(g, g->t_eat);
 		pthread_mutex_lock(&g->state);
 		ph->meals++;
@@ -84,6 +83,12 @@ void	*routine_philo(void *p)
 		put_forks(ph);
 		log_action(ph, "is sleeping");
 		safe_usleep(g, g->t_sleep);
+		log_action(ph, "is thinking");
 	}
 	return (NULL);
 }
+
+/*		if ((g->n % 2) && (ph->id % 2 == 0)			safe_usleep(g, g->t_eat/2);
+		if (!(g->n % 2) && (ph->id % 2 == 0))
+			safe_usleep(g, 1);
+*/

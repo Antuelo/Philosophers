@@ -6,12 +6,13 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 22:25:56 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/10 14:58:02 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/11 16:33:16 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/*free everithinggggs and destroy, of course*/
 void	destroy_and_free(t_args *g, t_philo *ph)
 {
 	int	i;

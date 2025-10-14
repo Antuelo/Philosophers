@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 22:16:44 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/10 14:54:15 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/11 16:36:14 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,8 @@ void				put_forks(t_philo *ph);
 void				*monitor(void *p);
 int					get_stop(t_args *g);
 void				set_s(t_args *g, int v);
+
+/*free everythingggg */
+void	destroy_and_free(t_args *g, t_philo *ph);
 
 #endif
