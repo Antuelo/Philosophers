@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 22:48:43 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/12 10:27:26 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/15 21:04:58 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	take_forks(t_philo *ph)
 	{
 		pthread_mutex_lock(&g->forks[ph->left]);
 		log_action(ph, "has taken a fork");
-		safe_usleep(g, g->t_die);
+		safe_usleep(g, g->t_die + 10);
 		pthread_mutex_unlock(&g->forks[ph->left]);
 		return ;
 	}

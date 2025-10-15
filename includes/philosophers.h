@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 22:16:44 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/11 16:36:14 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/15 13:40:46 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 typedef struct s_philo t_philo;
 
 /*
-n 			=	quantities philosophers
+n 			=	number to philosophers
 start_ms 	= 	start timestamp
 print 		=	para no mezclar printf
 *forks 		= 	array de mutex ... tenedores
-must_eat 	=	-1 si no se pasó
+must_eat 	=	-1 si no se pasó el 5to elemento
 philos			guarda el array para que el monitor lo vea
 
 */

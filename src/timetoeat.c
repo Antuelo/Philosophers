@@ -6,12 +6,13 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:57:17 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/11 16:29:24 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:09:39 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/*tv time valu of course*/
 long	now_ms(void)
 {
 	struct timeval	tv;
@@ -100,6 +101,8 @@ int	timetoeat(t_philo *ph, t_args *g)
 	tid = (pthread_t *)malloc(sizeof(pthread_t) * g->n);
 	if (!tid)
 		return (perror("malloc tid"), 1);
+	if (pthread_create(&mon, NULL, monitor, g) != 0)
+		return (perror("pthread_create monitor"), free(tid), 1);
 	i = 0;
 	while (i < g->n)
 	{
@@ -107,8 +110,6 @@ int	timetoeat(t_philo *ph, t_args *g)
 			return (perror("pthread_crete"), free(tid), 1);
 		i++;
 	}
-	if (pthread_create(&mon, NULL, monitor, g) != 0)
-		return (perror("pthread_create monitor"), free(tid), 1);
 	if (pthread_join(mon, &rmon) != 0)
 		return (perror("pthread_join monitor"), free(tid), 1);;
 	i = -1;
