@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 22:48:43 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/15 21:04:58 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/16 01:00:29 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,16 @@
 
 static	void case2(t_philo *ph, int *f1, int *f2)
 {
-	*f1 = ph->right;
-	*f2 = ph->left;
+	*f1 = ph->left;
+	*f2 = ph->right;
 }
 
 static	void case3(t_philo *ph, int *f1, int *f2)
 {
-	*f1 = ph->left;
-	*f2 = ph->right;
+	*f1 = ph->right;
+	*f2 = ph->left;
 }
-/*
-	Tomar forks con anti-deadlock:
-	- 1 filósofo: toma 1 fork, espera t_die, suelta y corta (stop=1).
-	- N>1: impares left->right, pares right->left.
-	- Loggea cada toma con "has taken a fork".
-*/
+
 void	take_forks(t_philo *ph)
 {
 	t_args	*g;
@@ -44,7 +39,7 @@ void	take_forks(t_philo *ph)
 		pthread_mutex_unlock(&g->forks[ph->left]);
 		return ;
 	}
-	if (ph->id % 2 == 0)
+	if (ph->left < ph->right)
 		case2(ph, &f1, &f2);
 	else
 		case3(ph, &f1, &f2);

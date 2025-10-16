@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 18:15:57 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/15 13:56:11 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/16 00:57:29 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	*routine_philo(void *p)
 	ph = (t_philo *)p;
 	g = ph->g;
 	if ((g->n % 2) && (ph->id % 2 == 0))
-		safe_usleep(g, g->t_eat / 2);
-	else if (!(g->n % 2) && (ph->id % 2 == 0))
-		safe_usleep(g, 1);
+    	safe_usleep(g, g->t_eat / 2);
 	while (!get_stop(g))
 	{
+		if (ph->id % 2 == 0)
+			safe_usleep(g, 1);
 		take_forks(ph);
 		if (get_stop(g))
 			return(put_forks(ph), NULL);
@@ -77,4 +77,9 @@ void	*routine_philo(void *p)
 			safe_usleep(g, g->t_eat/2);
 		if (!(g->n % 2) && (ph->id % 2 == 0))
 			safe_usleep(g, 1);
+
+			if ((g->n % 2) && (ph->id % 2 == 0))
+		safe_usleep(g, g->t_eat / 2);
+	else if (!(g->n % 2) && (ph->id % 2 == 0))
+		safe_usleep(g, 1);
 */
