@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:42:32 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/12 10:24:13 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/18 13:40:02 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	log_action(t_philo *ph, const char *msg)
 	if (!get_stop(g))
 	{
 		t = now_ms() - g->start_ms;
-		printf("%ld %d %s \n", t, ph->id, msg);
+		printf("%ld %d %s\n", t, ph->id, msg);
 	}
 	pthread_mutex_unlock(&g->print);
 }
