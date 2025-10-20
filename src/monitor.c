@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 23:23:35 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/11 13:58:01 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/21 00:12:35 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	*monitor(void *p)
 		}
 		if (g->must_eat != -1 && full)
 			return (set_s(g, 1), NULL);
-		usleep(1000);
+		usleep(500);
 	}
 	return (NULL);
 }
