@@ -39,26 +39,7 @@ void	take_forks(t_philo *ph)
 		pthread_mutex_unlock(&g->forks[ph->left]);
 		return ;
 	}
-	//if (ph->id != g->n)
-	if (g->n == 3)
-	{
-		if (ph->id == 1)
-		{
-			f1 = ph->left;
-			f2 = ph->right;
-		}
-		else if (ph->id == 2)
-		{
-			f1 = ph->right;
-			f2 = ph->left;
-		}
-		else // ph->id == 3
-		{
-			f1 = ph->right;
-			f2 = ph->left;
-		}
-	}
-	if (ph->id % 2 == 1)
+	if (ph->id != g->n)
 		case2(ph, &f1, &f2);
 	else
 		case3(ph, &f1, &f2);

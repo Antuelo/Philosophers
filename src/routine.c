@@ -19,14 +19,7 @@ void	*routine_philo(void *p)
 
 	ph = (t_philo *)p;
 	g = ph->g;
-	if (g->n == 3)
-	{
-		if (ph->id % 2 == 0)
-			safe_usleep(g, g->t_eat * 1.5);
-		else if (ph->id == 3)
-			safe_usleep(g, g->t_eat * 0.5);
-	}
-	else if (ph->id % 2 == 0)
+	if (ph->id % 2 == 0)
 		safe_usleep(g, g->t_eat * 0.9);
 	while (!get_stop(g))
 	{
@@ -47,10 +40,11 @@ void	*routine_philo(void *p)
 			break;
 		safe_usleep(g, g->t_sleep);
 		log_action(ph, "is thinking");
-		safe_usleep(g, 1);
+		if (g->n % 2 == 1)
+			safe_usleep(g, 1);
 	}
 	return (NULL);
 }
 
-/*		printf("DEBUG: %ld - Philosopher %d starting to eat\n", now_ms() - g->start_ms, ph->id);		ph->last_meal = now_ms();
+/*		printf("DEBUG: %ld - Philosopher %d empieza a to eat\n", now_ms() - g->start_ms, ph->id);		ph->last_meal = now_ms();
 */

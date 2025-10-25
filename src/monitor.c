@@ -30,7 +30,7 @@ void	*monitor(void *p)
 		{
 			pthread_mutex_lock(&g->state);
 			diff = now - g->philos[i].last_meal;
-			if (diff >= g->t_die)
+			if (diff > g->t_die)
 			{
 				pthread_mutex_unlock(&g->state);
 				set_s(g, 1);
