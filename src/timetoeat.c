@@ -12,7 +12,7 @@
 
 #include "philosophers.h"
 
-/*tv time valu of course*/
+/*tv = time value*/
 long	now_ms(void)
 {
 	struct timeval	tv;
@@ -21,9 +21,6 @@ long	now_ms(void)
 	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
 }
 
-/*
-	init args...
-*/
 static void init(t_args *g, int ac, long *nums)
 {
 	g->n = (int)nums[0];
@@ -36,6 +33,7 @@ static void init(t_args *g, int ac, long *nums)
 		g->must_eat = -1;
 	g->stop = 0;
 }
+
 /*	función que arma la “mesa” compartida; recibe config
  	parseada y cantidad de args para saber si vino el 5º
 	*g = globals ...
@@ -88,6 +86,7 @@ t_philo	*init_philos(t_args *g)
 /*
 	Lanza un thread por filósofo con routine_philo y espera a que terminen.
 	Por ahora se detiene cuando g->stop sea 1 (lo manejará el monitor).
+	g = globals
 */
 int	timetoeat(t_philo *ph, t_args *g)
 {

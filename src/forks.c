@@ -39,7 +39,26 @@ void	take_forks(t_philo *ph)
 		pthread_mutex_unlock(&g->forks[ph->left]);
 		return ;
 	}
-	if (ph->left < ph->right)
+	//if (ph->id != g->n)
+	if (g->n == 3)
+	{
+		if (ph->id == 1)
+		{
+			f1 = ph->left;
+			f2 = ph->right;
+		}
+		else if (ph->id == 2)
+		{
+			f1 = ph->right;
+			f2 = ph->left;
+		}
+		else // ph->id == 3
+		{
+			f1 = ph->right;
+			f2 = ph->left;
+		}
+	}
+	if (ph->id % 2 == 1)
 		case2(ph, &f1, &f2);
 	else
 		case3(ph, &f1, &f2);
@@ -52,6 +71,12 @@ void	take_forks(t_philo *ph)
 	}
 	pthread_mutex_lock(&g->forks[f2]);
 	log_action(ph, "has taken a fork");
+	if (get_stop(g))
+	{
+		pthread_mutex_unlock(&g->forks[f1]);
+		pthread_mutex_unlock(&g->forks[f2]);
+		return ;
+	}
 }
 
 /*
@@ -65,7 +90,9 @@ void	put_forks(t_philo *ph)
 
 	g = ph->g;
 	if (g->n == 1)
+	{
 		return ;
+	}
 	pthread_mutex_unlock(&g->forks[ph->left]);
 	pthread_mutex_unlock(&g->forks[ph->right]);
 }

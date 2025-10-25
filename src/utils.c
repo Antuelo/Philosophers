@@ -22,7 +22,7 @@
 	(evita basura después de una muerte).
 	Garantiza: no se pisan los prints entre threads (mutex).
 	Devuelve: nada. Solo side-effects (stdout).
-
+*/
 void	log_action(t_philo *ph, const char *msg)
 {
 	t_args	*g;
@@ -36,22 +36,6 @@ void	log_action(t_philo *ph, const char *msg)
 		printf("%ld %d %s \n", t, ph->id, msg);
 	}
 	pthread_mutex_unlock(&g->print);
-}*/
-void	log_action(t_philo *ph, const char *msg)
-{
-	t_args	*g;
-	long	t;
-
-	g = ph->g;
-	if (get_stop(g))
-		return ;
-	pthread_mutex_lock(&g->print);
-	if (!get_stop(g))
-	{
-		t = now_ms() - g->start_ms;
-		printf("%ld %d %s\n", t, ph->id, msg);
-	}
-	pthread_mutex_unlock(&g->print);
 }
 
 /*
@@ -62,7 +46,7 @@ void	log_action(t_philo *ph, const char *msg)
 	Ventaja: permite temporizaciones precisas sin bloquear un largo
 	usleep(ms*1000) que ignora el stop.
 	Devuelve: nada. Solo gestiona la espera cooperando con el monitor.
-*/
+
 void	safe_usleep(t_args *g, long ms)
 {
 	long	end;
@@ -70,6 +54,20 @@ void	safe_usleep(t_args *g, long ms)
 	end = now_ms() + ms;
 	while (!get_stop(g) && now_ms() < end)
 		usleep(500);
+}*/
+void	safe_usleep(t_args *g, long ms)
+{
+	long	start;
+	long	elapsed;
+
+	start = now_ms();
+	while (!get_stop(g))
+	{
+		elapsed = now_ms() - start;
+		if (elapsed >= ms)
+			break;
+		usleep(100);
+	}
 }
 
 int	get_stop(t_args *g)
