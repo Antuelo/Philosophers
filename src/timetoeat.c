@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:57:17 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/15 14:09:39 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/28 13:12:38 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ long	now_ms(void)
 	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
 }
 
-static void init(t_args *g, int ac, long *nums)
+static void	init(t_args *g, int ac, long *nums)
 {
 	g->n = (int)nums[0];
 	g->t_die = nums[1];
@@ -93,9 +93,7 @@ int	timetoeat(t_philo *ph, t_args *g)
 	pthread_t	*tid;
 	pthread_t	mon;
 	int			i;
-	void		*rmon;
 
-	rmon = NULL;
 	g->philos = ph;
 	tid = (pthread_t *)malloc(sizeof(pthread_t) * g->n);
 	if (!tid)
@@ -109,8 +107,8 @@ int	timetoeat(t_philo *ph, t_args *g)
 			return (perror("pthread_crete"), free(tid), 1);
 		i++;
 	}
-	if (pthread_join(mon, &rmon) != 0)
-		return (perror("pthread_join monitor"), free(tid), 1);;
+	if (pthread_join(mon, NULL) != 0)
+		return (perror("pthread_join monitor"), free(tid), 1);
 	i = -1;
 	while (++i < g->n)
 		pthread_join(tid[i], NULL);

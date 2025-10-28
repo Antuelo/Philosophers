@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:42:32 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/18 13:40:02 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/28 13:14:34 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	safe_usleep(t_args *g, long ms)
 	{
 		elapsed = now_ms() - start;
 		if (elapsed >= ms)
-			break;
+			break ;
 		usleep(100);
 	}
 }
@@ -53,7 +53,7 @@ int	get_stop(t_args *g)
 }
 
 /*setea stop*/
-void set_s(t_args *g, int v)
+void	set_s(t_args *g, int v)
 {
 	pthread_mutex_lock(&g->state);
 	g->stop = v;

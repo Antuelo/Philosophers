@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 22:16:44 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/15 13:40:46 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/28 13:17:58 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-typedef struct s_philo t_philo;
+typedef struct s_philo	t_philo;
 
 /*
 n 			=	number to philosophers
@@ -83,6 +83,6 @@ int					get_stop(t_args *g);
 void				set_s(t_args *g, int v);
 
 /*free everythingggg */
-void	destroy_and_free(t_args *g, t_philo *ph);
+void				destroy_and_free(t_args *g, t_philo *ph);
 
 #endif
