@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:57:17 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/28 13:12:38 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/28 13:58:17 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ static void	init(t_args *g, int ac, long *nums)
 	g->stop = 0;
 }
 
-/*	función que arma la “mesa” compartida; recibe config
- 	parseada y cantidad de args para saber si vino el 5º
+/*	malloc para los mutex
 	*g = globals ...
 	*/
 int	preparing_table(t_args *g, long *nums, int ac)

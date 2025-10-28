@@ -6,7 +6,7 @@
 /*   By: anoviedo <antuel@outlook.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:22:13 by anoviedo          #+#    #+#             */
-/*   Updated: 2025/10/11 16:59:55 by anoviedo         ###   ########.fr       */
+/*   Updated: 2025/10/28 14:50:45 by anoviedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,7 @@ int	checker(int n, char **args, long **dest)
 	while (--n > 0)
 	{
 		(*dest)[i] = ft_atol(args[i]);
-		if ((*dest)[i] < 0)
-			return (printf("only possitive number please\n"), 1);
-		else if ((*dest)[i] > INT_MAX)
+		if ((*dest)[i] > INT_MAX || (*dest)[i] < 0)
 			return (printf("Overflow, int_max 2147483647\n"), 1);
 		i++;
 	}
